@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="game"
+            type="es.sdos.android.project.data.model.game.GameBo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/game__list__rounds"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rounds="@{game.rounds}"
+            tools:listitem="@layout/row__round" />
+
+        <EditText
+            android:id="@+id/game__input__shot_score"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal"
+            app:layout_constraintEnd_toStartOf="@id/game__btn__shot_submit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game__label__total_value" />
+
+        <Button
+            android:id="@+id/game__btn__shot_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            app:layout_constraintBottom_toBottomOf="@id/game__input__shot_score"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/game__input__shot_score"
+            app:layout_constraintTop_toTopOf="@id/game__input__shot_score" />
+
+
+        <TextView
+            android:id="@+id/game__label__total"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal"
+            android:layout_marginEnd="@dimen/normal"
+            android:text="@string/total"
+            app:layout_constraintEnd_toStartOf="@id/game__label__total_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game__list__rounds" />
+
+        <TextView
+            android:id="@+id/game__label__total_value"
+            style="@style/Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(game.totalScore)}"
+            app:layout_constraintBottom_toBottomOf="@id/game__label__total"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/game__label__total"
+            app:layout_constraintTop_toTopOf="@id/game__label__total"
+            tools:text="123" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

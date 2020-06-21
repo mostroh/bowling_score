@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="score_box">24dp</dimen>
+    <dimen name="round_box">80dp</dimen> <!-- box * 3 + 8-->
+</resources>

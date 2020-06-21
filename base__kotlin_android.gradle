@@ -1,0 +1,108 @@
+import es.sdos.android.AppConfig
+import es.sdos.android.dependencies.Dependencies
+import es.sdos.android.dependencies.Plugins
+
+/**
+ * Configuration for android modules (with kotlin)
+ */
+
+apply plugin: Plugins.kotlinAndroid
+apply plugin: Plugins.kotlinApt
+apply plugin: Plugins.kotlinAndroidExtensions
+
+class PreVersion {
+    int preVersionCode
+    String preVersionName
+}
+
+android {
+    flavorDimensions "default"
+    def appname = "Kotlin-BaseProject"
+
+    productFlavors.whenObjectAdded {
+        flavor -> flavor.extensions.create("preversion", PreVersion)
+    }
+
+    compileSdkVersion AppConfig.compileSdkVersion
+    defaultConfig {
+        resValue "string", "app_name_pre", "PRE " + appname
+        resValue "string", "app_name_pro", appname
+        resValue "string", "app_name_dev", "DEV " + appname
+
+        minSdkVersion AppConfig.minSdkVersion
+        targetSdkVersion AppConfig.targetSdkVersion
+        versionCode AppConfig.versionCode
+        versionName AppConfig.versionName
+        testInstrumentationRunner AppConfig.testInstrumentationRunner
+    }
+
+    productFlavors {
+        def jenkinsBuildNumber = System.getenv('BUILD_NUMBER') ?: "Local"
+
+        local {
+            versionCode AppConfig.versionCode
+            versionName AppConfig.versionName
+            preversion.preVersionCode = versionCode
+            preversion.preVersionName = versionName + "(#" + jenkinsBuildNumber + ")"
+        }
+        pre {
+            versionCode AppConfig.versionCode
+            versionName AppConfig.versionName
+            preversion.preVersionCode = versionCode
+            preversion.preVersionName = versionName + "(#" + jenkinsBuildNumber + ")"
+        }
+        pro {
+            versionCode AppConfig.versionCode
+            versionName AppConfig.versionName
+            preversion.preVersionCode = versionCode
+            preversion.preVersionName = versionName + "(#" + jenkinsBuildNumber + ")"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            debuggable false
+            resValue "string", "app_name", "@string/app_name_pro"
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+            resValue "string", "app_name", "@string/app_name_dev"
+        }
+        preproduction {
+            minifyEnabled true
+            debuggable true
+            resValue "string", "app_name", "@string/app_name_pre"
+        }
+    }
+
+    task appVersion{
+        doLast {
+            println versionNameFormated + "_" + versionCodeFormated
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8" // set your Java version here
+    }
+}
+
+dependencies {
+
+    // KOTLIN
+    implementation Dependencies.Kotlin.coroutineAndroid
+    implementation Dependencies.Kotlin.ktxCore
+
+    // DAGGER
+    implementation Dependencies.Dagger.androidSupport
+    kapt Dependencies.Dagger.androidCompiler
+
+    // LIVEDATA
+    implementation Dependencies.Androidx.lifecycleExtensions
+    implementation Dependencies.Androidx.livedataKtxExtensions
+}

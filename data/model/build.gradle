@@ -1,0 +1,5 @@
+apply from: "$rootDir/configuration__kotlin_module.gradle"
+
+dependencies {
+
+}

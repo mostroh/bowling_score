@@ -1,0 +1,17 @@
+import es.sdos.android.dependencies.Dependencies
+
+/**
+ * Shared configuration between modules
+ */
+
+dependencies {
+
+    // KOTLIN
+    implementation Dependencies.Kotlin.stdlibJdk7
+    implementation Dependencies.Kotlin.coroutineCore
+
+    // DAGGER
+    implementation Dependencies.Dagger.core
+    kapt Dependencies.Dagger.coreCompiler
+
+}

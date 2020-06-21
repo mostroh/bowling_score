@@ -1,0 +1,10 @@
+import es.sdos.android.dependencies.Dependencies
+import es.sdos.android.dependencies.Plugins
+
+apply from: "$rootDir/configuration__android_library_module.gradle"
+apply plugin: Plugins.navigationSafeArgsKotlin
+
+dependencies {
+    implementation Dependencies.Androidx.navigation
+    implementation Dependencies.Androidx.navigationFragment
+}

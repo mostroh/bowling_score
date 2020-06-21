@@ -1,0 +1,108 @@
+import es.sdos.android.AppConfig
+import es.sdos.android.dependencies.Dependencies
+import es.sdos.android.dependencies.Modules
+import es.sdos.android.dependencies.Plugins
+
+apply plugin: Plugins.androidApplication
+apply from: "$rootDir/base__kotlin_android.gradle"
+apply from: "$rootDir/base__feature.gradle"
+apply from: "$rootDir/base__common_dependencies.gradle"
+
+android {
+    def appname = "Kotlin-BaseProject"
+    def jenkinsBuildNumber = System.getenv('BUILD_NUMBER') ?: "local"
+
+    defaultConfig {
+        applicationId AppConfig.applicationId
+    }
+
+    android.applicationVariants.all { variant ->
+
+        if (variant.buildType.name in ['preproduction']) {
+            if (variant.productFlavors.size() > 0) {
+                for (int i = 0; i < variant.productFlavors.size(); i++) {
+                    if (variant.productFlavors.get(i).preversion.preVersionName != null) {
+
+                        variant.outputs.all { output ->
+                            output.setVersionNameOverride(variant.productFlavors.get(i).preversion.preVersionName)
+                            output.setVersionCodeOverride(variant.productFlavors.get(i).preversion.preVersionCode)
+                        }
+
+                        println 'MERGED ' + variant.name + ' VARIABLES:'
+                        println 'New vesionName = ' + variant.productFlavors.get(i).preversion.preVersionName
+                        println 'New vesionCode = ' + variant.productFlavors.get(i).preversion.preVersionCode
+                        break
+                    }
+                }
+            }
+        }
+
+        def varName = variant.name.capitalize()
+
+        def copyTask = tasks.create(name: "copyAPK${varName}", type: Copy) {
+            def date = new Date()
+            def formatedDate = date.format('ddMMyyyy')
+            def apkFinalName = appname.toLowerCase() + "_" + variant.getProperties().get("flavorName") + "_" + variant.versionName + "_" + formatedDate + ".apk"
+            def apkName = "app-${variant.getProperties().get("flavorName")}-${variant.buildType.name.toString()}.apk"
+
+            def destDir = new File(rootDir.path + File.separator + 'apks')
+            if (destDir.exists()) {
+                destDir.delete()
+            }
+            destDir.mkdirs()
+            from "build/outputs/apk/${variant.getProperties().get("flavorName")}/${variant.buildType.name.toString()}"
+            into destDir
+            include '*.apk'
+            rename { String fileName ->
+                fileName.replace(apkName, apkFinalName)
+            }
+        }
+
+        def copyAabTask = tasks.create(name: "copyAab${varName}", type: Copy) {
+            def aabDefaultName = "app-${variant.getProperties().get("flavorName")}-${variant.buildType.name.toString()}.aab"
+            def aabFinalName = appname.toLowerCase() + variant.getProperties().get("flavorName") + "_" + variant.buildType.name + "_" + variant.versionName + "_" + variant.versionCode + "-(#" + jenkinsBuildNumber + ")" + ".aab"
+
+            def aabDestDir = new File(rootDir.path + File.separator + 'aabs')
+            if (aabDestDir.exists()) {
+                aabDestDir.delete()
+            }
+            aabDestDir.mkdirs()
+            from "build/outputs/bundle/${variant.getProperties().get("flavorName")}" + toCamelCase("${variant.buildType.name.toString()}")
+            into aabDestDir
+            include '**/*.aab'
+            rename { String fileName ->
+                fileName.replace(aabDefaultName, aabFinalName)
+            }
+        }
+
+        variant.assemble.finalizedBy {
+            copyTask
+        }
+    }
+}
+
+static String toCamelCase(String text) {
+    def firstChar = text.substring(0, 1)
+    def substring = text.substring(1)
+    return firstChar.toUpperCase() + substring
+}
+
+dependencies {
+    // API
+    implementation Dependencies.Retrofit.core
+    implementation Dependencies.Retrofit.gsonConverter
+    implementation Dependencies.OkHttp.httpLoggingInterceptor
+
+    // NAVIGATION
+    implementation project(Modules.navigation)
+
+    // DATA
+    implementation project(Modules.dataDatasource)
+    implementation project(Modules.dataLocal)
+    implementation project(Modules.dataRepository)
+    implementation project(Modules.dataRemote)
+
+    // FEATURE MODULES
+    implementation project(Modules.featureLauncher)
+    implementation project(Modules.featureHome)
+}

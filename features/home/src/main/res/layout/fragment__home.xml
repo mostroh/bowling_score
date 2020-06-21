@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="es.sdos.android.project.home.ui.viewmodel.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <Button
+            android:id="@+id/home__continue_game"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra"
+            android:layout_marginEnd="@dimen/extra"
+            android:text="@string/game_continue"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/home__new_game"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <Button
+            android:id="@+id/home__new_game"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginEnd="@dimen/extra"
+            android:text="@string/game_new"
+            app:layout_constraintBottom_toTopOf="@id/home__game_scores"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home__continue_game" />
+
+        <Button
+            android:id="@+id/home__game_scores"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginEnd="@dimen/extra"
+            android:onClick="@{() -> viewmodel.goToScores()}"
+            android:text="@string/game_scores"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home__new_game" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

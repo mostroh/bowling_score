@@ -1,0 +1,12 @@
+import es.sdos.android.dependencies.Modules
+
+include Modules.app,
+    Modules.common,
+    Modules.navigation,
+    Modules.featureLauncher,
+    Modules.featureHome,
+    Modules.dataDatasource,
+    Modules.dataLocal,
+    Modules.dataModel,
+    Modules.dataRemote,
+    Modules.dataRepository

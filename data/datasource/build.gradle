@@ -1,0 +1,7 @@
+import es.sdos.android.dependencies.Modules
+
+apply from: "$rootDir/configuration__kotlin_module.gradle"
+
+dependencies {
+    implementation project(Modules.dataModel)
+}

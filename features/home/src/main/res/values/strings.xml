@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Home</string>
+    <string name="game">Partida</string>
+    <string name="game_continue">Continuar partida</string>
+    <string name="game_new">Nueva partida</string>
+    <string name="game_scores">Puntuaciones</string>
+    <string name="date">Fecha</string>
+    <string name="score">Puntuación</string>
+    <string name="total">Total</string>
+    <string name="add">Añadir</string>
+    <string name="delete_game_alert">Al crear una nueva partida se eliminará la partida actual sin finalizar</string>
+</resources>

@@ -1,0 +1,19 @@
+import es.sdos.android.dependencies.Dependencies
+
+/**
+ * Configuration for Android test
+ */
+
+dependencies {
+    // ANDROID TEST
+    androidTestImplementation Dependencies.AndroidTest.core
+    androidTestImplementation Dependencies.AndroidTest.espressoCore
+    androidTestImplementation Dependencies.AndroidTest.runner
+    // KOIN
+    androidTestImplementation Dependencies.AndroidTest.koin
+    // ANDROID
+    androidTestImplementation Dependencies.AndroidTest.archCoreTest
+    androidTestImplementation Dependencies.AndroidTest.junit
+    // MOCK
+    androidTestImplementation Dependencies.AndroidTest.mockk
+}

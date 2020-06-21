@@ -1,0 +1,18 @@
+import es.sdos.android.dependencies.Dependencies
+import es.sdos.android.dependencies.Modules
+
+apply from: "$rootDir/configuration__android_library_module.gradle"
+
+android {
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    implementation project(Modules.navigation)
+    implementation project(Modules.dataRepository)
+
+    implementation Dependencies.Androidx.navigation
+    implementation Dependencies.Androidx.navigationFragment
+}

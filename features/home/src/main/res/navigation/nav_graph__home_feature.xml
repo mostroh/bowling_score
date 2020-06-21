@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph__home_feature"
+    app:startDestination="@id/homeFragment"
+    tools:ignore="UnusedNavigation">
+
+    <!-- HOME FRAGMENT -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="es.sdos.android.project.home.ui.fragment.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment__home">
+
+        <action
+            android:id="@+id/go_to_scoreHistory"
+            app:destination="@id/scoreHistoryFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/go_to_game"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <!-- SCORE HISTORY FRAGMENT -->
+    <fragment
+        android:id="@+id/scoreHistoryFragment"
+        android:name="es.sdos.android.project.home.ui.fragment.ScoreHistoryFragment"
+        android:label="@string/game_scores"
+        tools:layout="@layout/fragment__scores"/>
+
+</navigation>

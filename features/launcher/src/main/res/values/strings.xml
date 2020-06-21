@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="synchronize_data_loading">Sincronizando datos…</string>
+    <string name="synchronize_data_success">Sincronización completa</string>
+</resources>

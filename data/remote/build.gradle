@@ -1,0 +1,13 @@
+import es.sdos.android.dependencies.Dependencies
+import es.sdos.android.dependencies.Modules
+
+apply from: "$rootDir/configuration__kotlin_module.gradle"
+
+
+dependencies {
+    implementation Dependencies.Retrofit.core
+    implementation Dependencies.Retrofit.gsonConverter
+    implementation Dependencies.OkHttp.httpLoggingInterceptor
+    implementation project(Modules.dataDatasource)
+    implementation project(Modules.dataModel)
+}

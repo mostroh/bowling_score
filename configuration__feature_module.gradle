@@ -1,0 +1,6 @@
+import es.sdos.android.dependencies.Plugins
+
+apply plugin: Plugins.androidLibrary
+apply from: "$rootDir/base__kotlin_android.gradle"
+apply from: "$rootDir/base__feature.gradle"
+apply from: "$rootDir/base__common_dependencies.gradle"
