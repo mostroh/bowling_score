@@ -8,6 +8,7 @@ dependencies {
     kapt Dependencies.Androidx.roomCompiler
     api Dependencies.Androidx.room
     implementation Dependencies.Androidx.roomKtx
+    implementation Dependencies.Gson.core
     implementation project(Modules.dataDatasource)
     implementation project(Modules.dataModel)
 }

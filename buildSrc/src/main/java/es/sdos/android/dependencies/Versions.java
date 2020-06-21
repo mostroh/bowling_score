@@ -8,6 +8,8 @@ public class Versions {
     public static final String okHttp = "4.2.0";
     public static final String retrofit = "2.6.2";
     public static final String room = "2.2.5";
+    public static final String gson = "2.8.5";
+
 
     public class Androidx {
         public static final String appcompat = "1.1.0";

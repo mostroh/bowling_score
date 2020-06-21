@@ -41,7 +41,6 @@ public class Dependencies {
         public static final String androidSupport = "com.google.dagger:dagger-android-support:" + Versions.dagger;
     }
 
-
     public class Koin {
         public static final String core = "org.koin:koin-android:" + Versions.koin;
         public static final String viewmodel = "org.koin:koin-androidx-viewmodel:" + Versions.koin;
@@ -71,6 +70,10 @@ public class Dependencies {
         public static final String runtime = "androidx.room:room-runtime:" + Versions.room;
         public static final String compiler = "androidx.room:room-compiler:" + Versions.room;
         public static final String ktx = "androidx.room:room-ktx:" + Versions.room;
+    }
+
+    public class Gson {
+        public static final String core = "com.google.code.gson:gson:" + Versions.gson;
     }
 
 }

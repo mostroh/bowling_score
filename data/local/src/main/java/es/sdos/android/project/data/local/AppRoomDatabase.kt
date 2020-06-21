@@ -5,13 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import es.sdos.android.project.data.local.converter.DataConverter
 import es.sdos.android.project.data.local.converter.DateConverter
 import es.sdos.android.project.data.local.games.GamesDao
 import es.sdos.android.project.data.local.games.dbo.GameDbo
 import es.sdos.android.project.data.local.games.dbo.RoundDbo
 
 @Database(entities = [GameDbo::class, RoundDbo::class], version = 1, exportSchema = false)
-@TypeConverters(DateConverter::class)
+@TypeConverters(DateConverter::class, DataConverter::class)
 abstract class AppRoomDatabase : RoomDatabase() {
 
     abstract fun gamesDao(): GamesDao
