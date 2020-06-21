@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @Module
 class RemoteModule {
     companion object {
-        private const val BASE_URL = "https://api.myjson.com/"
+        private const val BASE_URL = "https://raw.githubusercontent.com/"
     }
 
     @Provides
