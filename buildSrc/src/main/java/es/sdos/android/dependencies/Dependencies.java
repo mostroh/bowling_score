@@ -67,4 +67,10 @@ public class Dependencies {
         public static final String scalarsConverter = "com.squareup.retrofit2:converter-scalars:" + Versions.retrofit;
     }
 
+    public class Room {
+        public static final String runtime = "androidx.room:room-runtime:" + Versions.room;
+        public static final String compiler = "androidx.room:room-compiler:" + Versions.room;
+        public static final String ktx = "androidx.room:room-ktx:" + Versions.room;
+    }
+
 }

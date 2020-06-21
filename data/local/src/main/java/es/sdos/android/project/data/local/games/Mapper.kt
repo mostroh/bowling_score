@@ -6,32 +6,38 @@ import es.sdos.android.project.data.model.game.GameBo
 import es.sdos.android.project.data.model.game.RoundBo
 import java.util.Date
 
-// TODO
 fun GameDbo.toBo() = GameBo(
     id,
-    Date(),
-    listOf(),
+    date,
+    rounds.map { it.toBo() },
     0,
     true
 )
 
-// TODO
 fun GameBo.toDbo() = GameDbo(
-    id
+    id,
+    date,
+    rounds.map{ it.toDbo()},
+    totalScore,
+    finished
 )
 
-// TODO
 fun RoundDbo.toBo() = RoundBo(
     id,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    gameId,
+    roundNum,
+    firstShot,
+    secondShot,
+    thirdShot,
+    score
 )
 
-// TODO
 public fun RoundBo.toDbo() = RoundDbo(
-    id
+    id,
+    gameId,
+    roundNum,
+    firstShot,
+    secondShot,
+    thirdShot,
+    score
 )

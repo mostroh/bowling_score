@@ -5,6 +5,8 @@ import es.sdos.android.project.data.local.games.dbo.GameDbo
 import es.sdos.android.project.data.model.game.GameBo
 import es.sdos.android.project.data.model.game.GameFilter
 import es.sdos.android.project.data.model.game.addShot
+import es.sdos.android.project.data.model.game.isComplete
+import java.util.Calendar
 import java.util.Date
 
 class GamesLocalDataSourceImpl(
@@ -16,17 +18,31 @@ class GamesLocalDataSourceImpl(
     }
 
     override suspend fun getGames(filter: GameFilter?): List<GameBo> {
-        TODO()
+        val games = gamesDao.getGames().map { it.toBo() }
+        return if (filter != null) {
+            when (filter){
+                GameFilter.FINISHED -> games.filter {it.finished}
+                GameFilter.NOT_FINISHED -> games.filter {!it.finished}
+            }
+        } else {
+            games
+        }
     }
 
     override suspend fun saveGames(games: List<GameBo>) {
         games.forEach { game ->
-            TODO()
+            gamesDao.saveGame(game.toDbo())
         }
     }
 
     override suspend fun createGame(): GameBo {
-        TODO()
+        val newGame=  GameBo(null,
+        Calendar.getInstance().time,
+            emptyList(),
+            0,
+            false)
+        gamesDao.saveGame(newGame.toDbo())
+        return newGame
     }
 
     override suspend fun deleteGame(gameId: Long) {
@@ -40,9 +56,13 @@ class GamesLocalDataSourceImpl(
             gamesDao.saveRound(it.toDbo())
         }
 
-        val game = gamesDao.getGame(gameId)
+        var game = gamesDao.getGame(gameId)
         if (game != null) {
-            //TODO
+            val newRoundsDbo = newRounds.map { it.toDbo() }
+            game = game.copy(rounds = newRoundsDbo,
+            totalScore = newRoundsDbo.last().score ?: 0,
+            finished = newRounds.last().roundNum == 10 && newRounds.last().isComplete())
+            gamesDao.saveGame(game)
         }
 
         return getGame(gameId)
