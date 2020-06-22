@@ -5,15 +5,18 @@ import androidx.lifecycle.viewModelScope
 import es.sdos.android.project.common.ui.BaseViewModel
 import es.sdos.android.project.common.util.lifecycle.MutableSourceLiveData
 import es.sdos.android.project.data.model.game.GameBo
+import es.sdos.android.project.data.model.game.GameFilter
 import es.sdos.android.project.data.repository.util.AppDispatchers
 import es.sdos.android.project.data.repository.util.AsyncResult
 import es.sdos.android.project.home.domain.CreateGameUseCase
+import es.sdos.android.project.home.domain.GetGamesUseCase
 import es.sdos.android.project.home.ui.fragment.HomeFragmentDirections
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val createGameUseCase: CreateGameUseCase,
+    private val getGamesUseCase: GetGamesUseCase,
     private val dispatchers: AppDispatchers
 ) : BaseViewModel() {
 
@@ -24,7 +27,9 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun requestPendingGame() {
-        TODO("Not yet implemented")
+        viewModelScope.launch(dispatchers.io) {
+            pendingGameLiveData.changeSource(getGamesUseCase(GameFilter.NOT_FINISHED))
+        }
     }
 
     fun createGame() : LiveData<AsyncResult<GameBo>> {

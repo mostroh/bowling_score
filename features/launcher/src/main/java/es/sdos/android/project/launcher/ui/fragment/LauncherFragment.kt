@@ -1,6 +1,7 @@
 package es.sdos.android.project.launcher.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ class LauncherFragment : BaseFragment() {
         val binding = FragmentLauncherBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
+        Log.d("LauncherFragment","onCreateView")
         return binding.root
     }
 

@@ -46,7 +46,7 @@ fun RoundBo.isComplete(): Boolean {
 private fun updateScores(result: MutableList<RoundBo>) {
     for (i in 0 until result.size) {
         val roundBo = result[i]
-        if (!roundBo.isComplete()) {
+        if (!roundBo.isComplete() && roundBo.roundNum!=10) {
             break
         }
         val previousScore = result.getOrNull(i - 1)?.score ?: 0
