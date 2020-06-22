@@ -62,7 +62,7 @@ class GamesLocalDataSourceImpl(
             game = game.copy(rounds = newRoundsDbo,
             totalScore = newRoundsDbo.last().score ?: 0,
             finished = newRounds.last().roundNum == 10 && newRounds.last().isComplete())
-            gamesDao.saveGame(game)
+            gamesDao.updateGame(game)
         }
 
         return getGame(gameId)

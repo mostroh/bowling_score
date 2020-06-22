@@ -16,8 +16,11 @@ abstract class GamesDao {
     @Query("SELECT * FROM RoundDbo WHERE gameId = :gameId ORDER BY roundNum")
     abstract suspend fun getRounds(gameId: Long): List<RoundDbo>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract suspend fun saveGame(gameDbo: GameDbo) : Long
+
+    @Update
+    abstract suspend fun updateGame(gameDbo: GameDbo) : Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun saveRound(roundDbo: RoundDbo) : Long
