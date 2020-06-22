@@ -10,8 +10,8 @@ fun GameDbo.toBo() = GameBo(
     id,
     date,
     rounds.map { it.toBo() },
-    0,
-    true
+    totalScore,
+    finished
 )
 
 fun GameBo.toDbo() = GameDbo(

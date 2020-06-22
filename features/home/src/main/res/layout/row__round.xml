@@ -9,6 +9,7 @@
             name="item"
             type="es.sdos.android.project.data.model.game.RoundBo" />
 
+        <import type="android.view.View" />
         <import
             alias="util"
             type="es.sdos.android.project.home.ui.binding.GameBinding" />
@@ -22,16 +23,20 @@
         android:focusable="true"
         tools:context=".ui.fragment.GameFragment">
 
+
         <TextView
             android:id="@+id/game_round_row__label__round_num"
             style="@style/Text.Small"
-            android:layout_width="@dimen/score_box"
+            android:layout_width="0dp"
             android:layout_height="@dimen/score_box"
             android:background="@drawable/bg__square_border"
-            android:text="1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@{util.INSTANCE.intOrEmpty(item.roundNum)}"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/game_round_row__label__third_shot"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1"/>
 
         <TextView
             android:id="@+id/game_round_row__label__first_shot"
@@ -39,42 +44,55 @@
             android:layout_width="@dimen/score_box"
             android:layout_height="@dimen/score_box"
             android:background="@drawable/bg__square_border"
-            android:text="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:gravity="center"
+            android:text="@{util.INSTANCE.shotScore(item,1)}"
+            app:layout_constraintEnd_toStartOf="@+id/game_round_row__label__second_shot"
+            app:layout_constraintTop_toBottomOf="@id/game_round_row__label__round_num"
+            tools:text="1"/>
 
         <TextView
             android:id="@+id/game_round_row__label__second_shot"
             style="@style/Text.Small"
             android:layout_width="@dimen/score_box"
             android:layout_height="@dimen/score_box"
+            android:gravity="center"
             android:background="@drawable/bg__square_border"
-            android:text="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@{util.INSTANCE.shotScore(item,2)}"
+            app:layout_constraintEnd_toStartOf="@id/game_round_row__label__third_shot"
+            app:layout_constraintTop_toBottomOf="@id/game_round_row__label__round_num"
+            tools:text="2"/>
 
         <TextView
             android:id="@+id/game_round_row__label__third_shot"
             style="@style/Text.Small"
             android:layout_width="@dimen/score_box"
             android:layout_height="@dimen/score_box"
+            android:gravity="center"
             android:background="@drawable/bg__square_border"
-            android:text="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@{util.INSTANCE.shotScore(item,3)}"
+            android:visibility="@{item.roundNum ==10 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game_round_row__label__round_num"
+            tools:text="3"/>
+
 
         <TextView
             android:id="@+id/game_round_row__label__score"
             style="@style/Text.Small"
             android:layout_width="@dimen/score_box"
-            android:layout_height="@dimen/score_box"
-            android:text="1"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginBottom="@dimen/small"
+            android:text="@{util.INSTANCE.intOrEmpty(item.score)}"
+            android:textSize="16sp"
+            android:textColor="@color/text_title"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game_round_row__label__first_shot"
+            tools:text="1"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

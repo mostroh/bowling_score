@@ -25,7 +25,7 @@ class HomeViewModel @Inject constructor(
 
     private val pendingGameLiveData = MutableSourceLiveData<AsyncResult<List<GameBo>>>()
 
-    private val _hasPendingGame = Transformations.map(pendingGameLiveData.liveData()) {pendingGameLiveData.liveData().value != null}
+    private val _hasPendingGame = Transformations.map(pendingGameLiveData.liveData()) {!pendingGameLiveData.liveData().value?.data.isNullOrEmpty()}
     val hasPendingGame : LiveData<Boolean> = _hasPendingGame
 
     init {

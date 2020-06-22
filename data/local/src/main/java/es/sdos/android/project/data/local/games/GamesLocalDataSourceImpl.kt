@@ -14,7 +14,7 @@ class GamesLocalDataSourceImpl(
 ) : GamesLocalDataSource {
 
     override suspend fun getGame(gameId: Long): GameBo? {
-        return gamesDao.getGame(gameId)?.toBo()?.copy(rounds = gamesDao.getRounds(gameId).map { it.toBo() })
+        return gamesDao.getGame(gameId)?.toBo()
     }
 
     override suspend fun getGames(filter: GameFilter?): List<GameBo> {
