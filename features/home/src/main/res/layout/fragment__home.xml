@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="viewmodel"
@@ -21,7 +22,7 @@
             android:layout_marginStart="@dimen/extra"
             android:layout_marginEnd="@dimen/extra"
             android:text="@string/game_continue"
-            android:visibility="gone"
+            android:visibility="@{viewmodel.hasPendingGame ? View.VISIBLE: View.GONE}"
             app:layout_constraintBottom_toTopOf="@id/home__new_game"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

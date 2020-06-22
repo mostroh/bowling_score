@@ -1,6 +1,9 @@
 package es.sdos.android.project.home.ui.viewmodel
 
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import es.sdos.android.project.common.ui.BaseViewModel
 import es.sdos.android.project.common.util.lifecycle.MutableSourceLiveData
@@ -21,6 +24,9 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val pendingGameLiveData = MutableSourceLiveData<AsyncResult<List<GameBo>>>()
+
+    private val _hasPendingGame = Transformations.map(pendingGameLiveData.liveData()) {pendingGameLiveData.liveData().value != null}
+    val hasPendingGame : LiveData<Boolean> = _hasPendingGame
 
     init {
         requestPendingGame()
@@ -45,8 +51,9 @@ class HomeViewModel @Inject constructor(
     }
 
     fun goToGame(gameId: Long) {
-        TODO()
+        navigate(HomeFragmentDirections.goToGame(gameId))
     }
+
 
     fun getPendingGameLiveData() = pendingGameLiveData.liveData()
 }

@@ -20,7 +20,7 @@ abstract class GamesDao {
     abstract suspend fun saveGame(gameDbo: GameDbo) : Long
 
     @Update
-    abstract suspend fun updateGame(gameDbo: GameDbo) : Long
+    abstract suspend fun updateGame(gameDbo: GameDbo)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun saveRound(roundDbo: RoundDbo) : Long

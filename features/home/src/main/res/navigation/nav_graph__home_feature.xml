@@ -24,6 +24,7 @@
 
         <action
             android:id="@+id/go_to_game"
+            app:destination="@id/gameFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -38,5 +39,16 @@
         android:name="es.sdos.android.project.home.ui.fragment.ScoreHistoryFragment"
         android:label="@string/game_scores"
         tools:layout="@layout/fragment__scores"/>
+
+    <!-- SCORE HISTORY FRAGMENT -->
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="es.sdos.android.project.home.ui.fragment.GameFragment"
+        android:label="@string/game"
+        tools:layout="@layout/fragment__game">
+        <argument
+            android:name="gameId"
+            app:argType="long" />
+    </fragment>
 
 </navigation>

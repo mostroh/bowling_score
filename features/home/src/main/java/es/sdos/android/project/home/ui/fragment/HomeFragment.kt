@@ -31,8 +31,16 @@ class HomeFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getPendingGameLiveData().observe(viewLifecycleOwner, Observer { result ->
+            pendingGame = result.data?.first().takeIf { result.status == AsyncResult.Status.SUCCESS }
+        })
+    }
+
     private fun bindClicks() {
         binding.homeNewGame.setOnClickListener {
+            //TODO sacar diálogo
             onNewGameClick()
         }
         binding.homeContinueGame.setOnClickListener {
