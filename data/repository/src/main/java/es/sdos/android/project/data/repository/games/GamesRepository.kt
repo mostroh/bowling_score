@@ -20,6 +20,8 @@ interface GamesRepository {
 
     suspend fun addShot(gameId: Long, shotScore: Int): RepositoryResponse<GameBo?>
 
+    suspend fun deleteGame(gameId: Long)
+
 }
 
 internal class GamesRepositoryImpl(
@@ -54,6 +56,10 @@ internal class GamesRepositoryImpl(
                 return local.createGame()
             }
         }.build()
+    }
+
+    override suspend fun deleteGame(gameId: Long) {
+        local.deleteGame(gameId)
     }
 
     override suspend fun getGame(gameId: Long): RepositoryResponse<GameBo?> {

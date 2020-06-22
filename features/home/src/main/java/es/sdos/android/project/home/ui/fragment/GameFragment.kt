@@ -30,7 +30,7 @@ class GameFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getLong("gameId")?.let { viewModel.requestGame(it) }
+        arguments?.let { args -> viewModel.requestGame(GameFragmentArgs.fromBundle(args).gameId) }
         viewModel.getGameLiveData().observe(viewLifecycleOwner, Observer { result ->
             binding.game = result.data?.takeIf { result.status == AsyncResult.Status.SUCCESS }
         })
