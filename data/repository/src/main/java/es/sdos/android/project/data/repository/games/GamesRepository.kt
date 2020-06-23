@@ -12,7 +12,7 @@ interface GamesRepository {
 
     suspend fun synchronizeData(): RepositoryResponse<List<GameBo>>
 
-    suspend fun createGame(): RepositoryResponse<GameBo>
+    suspend fun createGame(): RepositoryResponse<GameBo?>
 
     suspend fun getGame(gameId: Long): RepositoryResponse<GameBo?>
 
@@ -50,8 +50,8 @@ internal class GamesRepositoryImpl(
         }.build()
     }
 
-    override suspend fun createGame(): RepositoryResponse<GameBo> {
-        return object : LocalResponse<GameBo>() {
+    override suspend fun createGame(): RepositoryResponse<GameBo?> {
+        return object : LocalResponse<GameBo?>() {
             override suspend fun loadFromLocal(): GameBo? {
                 return local.createGame()
             }

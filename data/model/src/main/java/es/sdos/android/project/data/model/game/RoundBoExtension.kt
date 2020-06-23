@@ -2,17 +2,22 @@ package es.sdos.android.project.data.model.game
 
 fun List<RoundBo>.addShot(gameId: Long, shotScore: Int): List<RoundBo> {
     val result = this.toMutableList()
-    if (result.isEmpty()) {
+    if (result.isEmpty() && shotScore <= 10) {
         result.add(RoundBo(null, gameId, 1, shotScore, null, null, null))
     } else {
         val lastRound = result.last()
-        if (lastRound.isComplete()) {
+        if (lastRound.isComplete() && shotScore <= 10) {
             result.add(RoundBo(null, gameId, lastRound.roundNum + 1, shotScore, null, null, null))
         } else {
-            result[result.size - 1] = if (lastRound.secondShot == null) {
+            result[result.size - 1] = if (lastRound.secondShot == null
+                && lastRound.firstShot + shotScore <= 10) {
                 lastRound.copy(secondShot = shotScore)
             } else {
-                lastRound.copy(thirdShot = shotScore)
+                if (shotScore <=10) {
+                    lastRound.copy(thirdShot = shotScore)
+                } else{
+                    lastRound.copy()
+                }
             }
         }
 

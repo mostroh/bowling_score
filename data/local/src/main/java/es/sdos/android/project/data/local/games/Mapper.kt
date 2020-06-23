@@ -33,6 +33,7 @@ fun RoundDbo.toBo() = RoundBo(
 )
 
 fun RoundBo.toDbo() = RoundDbo(
+    id,
     gameId,
     roundNum,
     firstShot,

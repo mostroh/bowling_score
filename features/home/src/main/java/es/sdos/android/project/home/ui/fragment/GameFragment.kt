@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer
 import es.sdos.android.project.common.di.ViewModelFactory
 import es.sdos.android.project.common.ui.BaseFragment
 import es.sdos.android.project.common.ui.BaseViewModel
+import es.sdos.android.project.data.model.game.GameBo
+import es.sdos.android.project.data.model.game.RoundBo
 import es.sdos.android.project.data.repository.util.AsyncResult
 import es.sdos.android.project.feature.home.databinding.FragmentGameBinding
 import es.sdos.android.project.home.ui.viewmodel.GameViewModel
@@ -21,9 +23,9 @@ class GameFragment : BaseFragment() {
 
     private lateinit var binding: FragmentGameBinding
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentGameBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -34,7 +36,6 @@ class GameFragment : BaseFragment() {
         viewModel.getGameLiveData().observe(viewLifecycleOwner, Observer { result ->
             binding.game = result.data?.takeIf { result.status == AsyncResult.Status.SUCCESS }
         })
-
     }
 
     override fun getViewModel() = viewModel as BaseViewModel

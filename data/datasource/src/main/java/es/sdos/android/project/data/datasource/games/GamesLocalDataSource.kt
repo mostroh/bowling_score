@@ -11,7 +11,7 @@ interface GamesLocalDataSource {
 
     suspend fun saveGames(games: List<GameBo>)
 
-    suspend fun createGame(): GameBo
+    suspend fun createGame(): GameBo?
 
     suspend fun deleteGame(gameId: Long)
 

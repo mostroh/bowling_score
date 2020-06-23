@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class RoundDbo(
+    @PrimaryKey (autoGenerate = true) var id: Long? = null,
     val gameId: Long,
     val roundNum: Int,
     val firstShot: Int,
@@ -12,5 +13,5 @@ data class RoundDbo(
     val thirdShot: Int?,
     val score: Int?
 ){
-    @PrimaryKey (autoGenerate = true) var id: Long? = null
+
 }

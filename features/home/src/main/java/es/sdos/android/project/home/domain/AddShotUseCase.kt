@@ -8,10 +8,10 @@ import es.sdos.android.project.data.repository.util.AsyncResult
 import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
 
-class CreateGameUseCase @Inject constructor(private val repository: GamesRepository) {
+class AddShotUseCase @Inject constructor(private val repository: GamesRepository) {
 
-    suspend operator fun invoke(): LiveData<AsyncResult<GameBo?>> {
-        return repository.createGame().flow().asLiveData(coroutineContext)
+    suspend operator fun invoke(gameId: Long, shotScore: Int): LiveData<AsyncResult<GameBo?>> {
+        return repository.addShot(gameId, shotScore).flow().asLiveData(coroutineContext)
     }
 
 }

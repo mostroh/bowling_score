@@ -8,6 +8,7 @@ import es.sdos.android.project.data.model.game.addShot
 import es.sdos.android.project.data.model.game.isComplete
 import java.util.Calendar
 import java.util.Date
+import kotlin.math.round
 
 class GamesLocalDataSourceImpl(
     private val gamesDao: GamesDao
@@ -32,17 +33,24 @@ class GamesLocalDataSourceImpl(
     override suspend fun saveGames(games: List<GameBo>) {
         games.forEach { game ->
             gamesDao.saveGame(game.toDbo())
+            game.rounds.forEach{
+                round ->
+                if (round.id != null) {
+                    gamesDao.updateRound(round.toDbo())
+                }
+                gamesDao.saveRound(round.toDbo())
+            }
         }
     }
 
-    override suspend fun createGame(): GameBo {
+    override suspend fun createGame(): GameBo? {
         val newGame=  GameBo(null,
         Calendar.getInstance().time,
             emptyList(),
             0,
             false)
-        gamesDao.saveGame(newGame.toDbo())
-        return newGame
+        val newId = gamesDao.saveGame(newGame.toDbo())
+        return gamesDao.getGame(newId)?.toBo()
     }
 
     override suspend fun deleteGame(gameId: Long) {
@@ -51,9 +59,14 @@ class GamesLocalDataSourceImpl(
     }
 
     override suspend fun addShot(gameId: Long, shotScore: Int): GameBo? {
-        val newRounds = gamesDao.getRounds(gameId).map { it.toBo() }.addShot(gameId, shotScore)
+        val oldRounds = gamesDao.getRounds(gameId).map { it.toBo() }
+        val newRounds = oldRounds.addShot(gameId, shotScore)
         newRounds.forEach {
-            gamesDao.saveRound(it.toDbo())
+            if (it.id!=null){
+                gamesDao.updateRound(it.toDbo())
+            } else {
+                gamesDao.saveRound(it.toDbo())
+            }
         }
 
         var game = gamesDao.getGame(gameId)

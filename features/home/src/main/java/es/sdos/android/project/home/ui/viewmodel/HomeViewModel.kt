@@ -38,8 +38,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun createGame() : LiveData<AsyncResult<GameBo>> {
-        val createGameLiveData = MutableSourceLiveData<AsyncResult<GameBo>>()
+    fun createGame() : LiveData<AsyncResult<GameBo?>> {
+        val createGameLiveData = MutableSourceLiveData<AsyncResult<GameBo?>>()
         viewModelScope.launch(dispatchers.io) {
             createGameLiveData.changeSource(createGameUseCase())
         }

@@ -6,8 +6,13 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="es.sdos.android.project.home.ui.viewmodel.GameViewModel" />
+        <variable
             name="game"
             type="es.sdos.android.project.data.model.game.GameBo" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,6 +36,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal"
+            android:text="@={viewModel.lastShot}"
             android:inputType="number"
             app:layout_constraintEnd_toStartOf="@id/game__btn__shot_submit"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -42,11 +48,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add"
+            android:onClick="@{ () ->viewModel.addShot(game.id)}"
             app:layout_constraintBottom_toBottomOf="@id/game__input__shot_score"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/game__input__shot_score"
-            app:layout_constraintTop_toTopOf="@id/game__input__shot_score"
-            app:layout_constraintVertical_bias="0.33999997" />
+            app:layout_constraintTop_toTopOf="@id/game__input__shot_score" />
 
 
         <TextView
